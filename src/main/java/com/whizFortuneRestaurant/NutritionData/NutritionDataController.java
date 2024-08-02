@@ -1,0 +1,48 @@
+package com.whizFortuneRestaurant.NutritionData;
+
+import com.whizFortuneRestaurant.Utils.ApiResponse;
+import com.whizFortuneRestaurant.Utils.ResponseUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/nutritiondata")
+public class NutritionDataController {
+    @Autowired
+    NutritionDataService nutritionDataService;
+    @GetMapping
+    public ResponseEntity<List<ApiResponse<NutritionData>>> getAllNutritionData(){
+        List<NutritionData> list = nutritionDataService.getAllNutritionData();
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS","ok"));
+    }
+    @GetMapping("/general")
+    public List<NutritionDataDto> getAllNutritionDataWithoutDependency(){
+        return nutritionDataService.getAllNutritionDataDto();
+    }
+
+    @PostMapping
+    public ResponseEntity<List<ApiResponse<NutritionData>>> saveNutritionData(@RequestBody NutritionData nutritionData){
+        nutritionDataService.saveNutritionData(nutritionData);
+        List<NutritionData> list = nutritionDataService.getAllNutritionData();
+        System.out.println("added succ"+nutritionData);
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS","ok"));
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<List<ApiResponse<NutritionData>>> updateNutritionData(@PathVariable long id,@RequestBody NutritionData nutritionData){
+        System.out.println("into controller Nutritiondata "+nutritionData);
+        nutritionDataService.updateNutritionData(id,nutritionData);
+        System.out.println("Saved");
+        List<NutritionData> list = nutritionDataService.getAllNutritionData();
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS","ok"));
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<List<ApiResponse<NutritionData>>> deleteNutritionData(@PathVariable long id){
+        nutritionDataService.deleteNutritionData(id);
+        List<NutritionData> list = nutritionDataService.getAllNutritionData();
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS","ok"));
+    }
+
+}
