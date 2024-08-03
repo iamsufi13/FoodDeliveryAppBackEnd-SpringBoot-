@@ -60,9 +60,9 @@ public class ProductController {
     public ResponseEntity<List<ApiResponse<Product>>> getProductsByTag(@RequestParam("tag") String tag) {
         List<Product> products = productService.getProductsByTag(tag);
         if (products.isEmpty()) {
-            return ResponseEntity.ok().body(ResponseUtils.createResponse(products,"SUCCESS","ok"));
+            return ResponseEntity.ok().body(ResponseUtils.createResponse(products,"SUCCESS",false));
         } else {
-            return ResponseEntity.ok().body(ResponseUtils.createResponse(products,"SUCCESS","ok"));
+            return ResponseEntity.ok().body(ResponseUtils.createResponse(products,"SUCCESS",true));
 
         }
     }

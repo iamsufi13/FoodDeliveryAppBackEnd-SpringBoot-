@@ -19,13 +19,13 @@ public class FavoriteController {
     @GetMapping
     public ResponseEntity<List<ApiResponse<FavoriteDto>>> getAllFavorite(){
         List<FavoriteDto> list = favoriteService.getAllFavorite();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS","true"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS",true));
 
     }
     @GetMapping("/{id}")
     public ResponseEntity<List<ApiResponse<Favorite>>> getSingleFavorite(@PathVariable long id){
         Favorite list = favoriteService.getFavoriteById(id);
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success","true"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success",true));
     }
     @PostMapping(consumes = "application/json")
     public ResponseEntity<List<ApiResponse<FavoriteDto>>> addFavorite(@RequestBody Favorite favorite){
@@ -33,7 +33,7 @@ public class FavoriteController {
         favoriteService.addToFavorite(favorite);
         System.out.println("Added");
         List<FavoriteDto> list = favoriteService.getAllFavorite();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success","true"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success",true));
     }
 
     @PostMapping("/add")
@@ -62,7 +62,7 @@ public class FavoriteController {
         favoriteService.deleteFavoriteById(id);
         System.out.println("Deleted ");
         List<FavoriteDto> list = favoriteService.getAllFavorite();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success","true"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success",true));
     }
 
 

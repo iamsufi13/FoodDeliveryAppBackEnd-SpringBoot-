@@ -3,21 +3,21 @@ package com.whizFortuneRestaurant.Utils;
 import java.util.List;
 
 public class HomePageResponse<T> {
-    private String status;
+    private boolean status;
     private String message;
     private List<T> data;
 
-    public HomePageResponse(String status, String message, List<T> data) {
+    public HomePageResponse(boolean status, String message, List<T> data) {
         this.status = status;
         this.message = message;
         this.data = data;
     }
 
-    public String getStatus() {
+    public boolean       getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 

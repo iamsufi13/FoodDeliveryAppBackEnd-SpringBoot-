@@ -18,12 +18,12 @@ public class OrderStatusController {
     @GetMapping
     public ResponseEntity<List<ApiResponse<OrderStatus>>> getAllOrderStatus(){
         List<OrderStatus> list = orderStatusService.getAllOrderStatus();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS","ok"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS",true));
     }
     @GetMapping("/{id}")
     private ResponseEntity<List<ApiResponse<OrderStatus>>> getOrderStatusById(@PathVariable long id){
         OrderStatus list = orderStatusService.getOrderStatusById(id);
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS","ok"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS",true));
 
     }
     @PostMapping
@@ -32,7 +32,7 @@ public class OrderStatusController {
         orderStatusService.addOrderStatus(orderStatus);
         System.out.println("Added ");
         List<OrderStatus> list = orderStatusService.getAllOrderStatus();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success","true"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success",true));
     }
 
     @PutMapping("/{id}")
@@ -48,7 +48,7 @@ public class OrderStatusController {
         orderStatusService.deleteOrderStatusById(id);
         System.out.println("Deleted ");
         List<OrderStatus> list = orderStatusService.getAllOrderStatus();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success","true"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success",true));
     }
 
 }

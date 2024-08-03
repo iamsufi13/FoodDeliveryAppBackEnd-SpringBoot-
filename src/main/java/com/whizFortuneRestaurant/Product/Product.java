@@ -5,6 +5,7 @@ import com.whizFortuneRestaurant.AvailableCustomization.AvailableCustomization;
 import com.whizFortuneRestaurant.AvailableISizes.AvailableSizes;
 import com.whizFortuneRestaurant.Cart.Cart;
 import com.whizFortuneRestaurant.Catlog1.Catlogs;
+import com.whizFortuneRestaurant.ComboProductDetails.ComboProductDetails;
 import com.whizFortuneRestaurant.ComboProducts.ComboProducts;
 import com.whizFortuneRestaurant.Coupon.Coupon;
 import com.whizFortuneRestaurant.DealOfTheDay.DealOfTheDay;
@@ -87,10 +88,14 @@ public class Product implements java.io.Serializable {
     @JoinColumn(name = "order_id")
     private Orders orders;
 
-    @ManyToOne
-    @JoinColumn(name = "comboproduct_id")
-    private ComboProducts comboproducts;
+//    @ManyToOne
+//    @JoinColumn(name = "comboproduct_id")
+////    @JsonIgnore
+//    private ComboProducts comboproducts;
 
     @OneToMany(mappedBy = "product")
     private Set<WishList> wishListSet;
+
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<ComboProductDetails> comboProductDetails;
 }

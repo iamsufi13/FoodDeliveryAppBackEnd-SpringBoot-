@@ -60,7 +60,7 @@ public class CustomizationProductControlller {
     @GetMapping
     public ResponseEntity<List<ApiResponse<CustomizationProduct>>> getAllCustomizationProducts() {
         List<CustomizationProduct> list = customizationProductService.getAll();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list, "SUCCESS", "ok"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list, "SUCCESS", true));
     }
     @GetMapping("/general")
     public List<CustomizationProduct> getAllCustomizationProductWithoutDependency(){
@@ -72,20 +72,20 @@ public class CustomizationProductControlller {
         customizationProductService.saveCustomizationProduct(customizationProduct);
         List<CustomizationProduct> list = customizationProductService.getAll();
         System.out.println("CSuomization Product added successfully "+customizationProduct);
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list, "SUCCESS", "ok"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list, "SUCCESS", true));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<List<ApiResponse<CustomizationProduct>>> updateCustomizationProduct(@PathVariable long id, @RequestBody CustomizationProduct customizationProduct) {
         customizationProductService.updateCustomizationProduct(id, customizationProduct);
         List<CustomizationProduct> list = customizationProductService.getAll();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list, "SUCCESS", "ok"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list, "SUCCESS", true));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<List<ApiResponse<CustomizationProduct>>> deleteCustomizationProduct(@PathVariable long id) {
         customizationProductService.deleteCustomiationProductById(id);
         List<CustomizationProduct> list = customizationProductService.getAll();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list, "SUCCESS", "ok"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list, "SUCCESS", true));
     }
 }

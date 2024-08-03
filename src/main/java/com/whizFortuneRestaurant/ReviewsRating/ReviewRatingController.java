@@ -22,12 +22,12 @@ public class ReviewRatingController {
     @GetMapping
     public ResponseEntity<List<ApiResponse<ReviewRating>>> getAllReviewRating(){
         List<ReviewRating> list = reviewRatingService.getAllReviewRating();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS","ok"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS",true));
     }
     @GetMapping("/{id}")
     public ResponseEntity<List<ApiResponse<ReviewRating>>> getReviewRatingById(@PathVariable long id){
         ReviewRating list = reviewRatingService.getById(id);
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS","ok"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS",true));
 
     }
     @PostMapping
@@ -36,7 +36,7 @@ public class ReviewRatingController {
         reviewRatingService.addReviewRating(reviewRating);
         System.out.println("Added ");
         List<ReviewRating> list = reviewRatingService.getAllReviewRating();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success","true"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success",true));
     }
 
     @PutMapping("/{id}")
@@ -52,7 +52,7 @@ public class ReviewRatingController {
         reviewRatingService.deleteReviewRatingById(id);
         System.out.println("Deleted ");
         List<ReviewRating> list = reviewRatingService.getAllReviewRating();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success","true"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success",true));
     }
 
 }

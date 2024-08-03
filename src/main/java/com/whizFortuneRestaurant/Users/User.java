@@ -58,7 +58,7 @@ public class User implements java.io.Serializable{
     private List<Favorite> favorites;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference(value = "user-addresses")
+    @JsonBackReference
     List<Address> addresses;
 
     @OneToMany(mappedBy = "user")

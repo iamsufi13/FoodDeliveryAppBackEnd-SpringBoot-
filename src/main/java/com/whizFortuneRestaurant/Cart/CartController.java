@@ -20,13 +20,13 @@ public class CartController {
     @GetMapping
     public ResponseEntity<List<ApiResponse<Cart>>> getAllCartData(){
         List<Cart> list = cartService.getAllCart();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success","true"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success",true));
 
     }
     @GetMapping("/{id}")
     public ResponseEntity<List<ApiResponse<Cart>>> getSingleCart(@PathVariable long id){
         Cart list = cartService.getCartById(id);
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success","true"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success",true));
     }
     @PostMapping
     public ResponseEntity<List<ApiResponse<Cart>>> addCart(@RequestBody Cart cart){
@@ -34,7 +34,7 @@ public class CartController {
         cartService.addToCart(cart);
         System.out.println("Added to cart");
         List<Cart> list = cartService.getAllCart();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success","true"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success",true));
     }
 
     @PutMapping("/{id}")
@@ -50,6 +50,6 @@ public class CartController {
         cartService.deleteCartById(id);
         System.out.println("Delete");
         List<Cart> list = cartService.getAllCart();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success","true"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success",true));
     }
 }

@@ -16,7 +16,7 @@ public class NutritionDataController {
     @GetMapping
     public ResponseEntity<List<ApiResponse<NutritionData>>> getAllNutritionData(){
         List<NutritionData> list = nutritionDataService.getAllNutritionData();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS","ok"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS",true));
     }
     @GetMapping("/general")
     public List<NutritionDataDto> getAllNutritionDataWithoutDependency(){
@@ -28,7 +28,7 @@ public class NutritionDataController {
         nutritionDataService.saveNutritionData(nutritionData);
         List<NutritionData> list = nutritionDataService.getAllNutritionData();
         System.out.println("added succ"+nutritionData);
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS","ok"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS",true));
     }
     @PutMapping("/{id}")
     public ResponseEntity<List<ApiResponse<NutritionData>>> updateNutritionData(@PathVariable long id,@RequestBody NutritionData nutritionData){
@@ -36,13 +36,13 @@ public class NutritionDataController {
         nutritionDataService.updateNutritionData(id,nutritionData);
         System.out.println("Saved");
         List<NutritionData> list = nutritionDataService.getAllNutritionData();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS","ok"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS",true));
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<List<ApiResponse<NutritionData>>> deleteNutritionData(@PathVariable long id){
         nutritionDataService.deleteNutritionData(id);
         List<NutritionData> list = nutritionDataService.getAllNutritionData();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS","ok"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS",true));
     }
 
 }

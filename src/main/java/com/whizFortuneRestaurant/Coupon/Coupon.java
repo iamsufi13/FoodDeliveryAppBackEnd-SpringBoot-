@@ -1,6 +1,5 @@
 package com.whizFortuneRestaurant.Coupon;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.whizFortuneRestaurant.Product.Product;
 import jakarta.persistence.*;
@@ -19,9 +18,8 @@ public class Coupon {
     private String coupon_type;
 
     @ManyToOne
-    @JsonBackReference(value = "product-coupons")
-    @JoinColumn(name = "product_id", columnDefinition = "bigint default 0")
-    private Product product;
+    @JoinColumn(name = "product_id")
+    private Product product; // Ensure this matches your Product class
 
     private String couponCode;
 
@@ -35,12 +33,9 @@ public class Coupon {
     private LocalDateTime dt1;
 
     @PrePersist
-    public void perpersist(){
-        this.dt1=LocalDateTime.now();
-
+    public void prePersist() {
+        this.dt1 = LocalDateTime.now();
     }
 
-    public void dt1(LocalDateTime dt1){
-        this.dt1=dt1;
-    }
+    // Removed setter for dt1 if not needed, otherwise keep it
 }

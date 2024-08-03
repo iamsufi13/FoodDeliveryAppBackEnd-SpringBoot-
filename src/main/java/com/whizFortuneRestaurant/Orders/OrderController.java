@@ -19,13 +19,13 @@ public class OrderController {
     @GetMapping
     public ResponseEntity<List<ApiResponse<Orders>>> getAllOrders(){
         List<Order> list = orderService.getAllOrders();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS","ok"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS",true));
 
     }
     @GetMapping("/{id}")
     public ResponseEntity<List<ApiResponse<Orders>>> getByIdOrders(@PathVariable long id){
         Orders list= orderService.getByIdOrder(id);
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS","true"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS",true));
     }
 
         @PostMapping
@@ -34,7 +34,7 @@ public class OrderController {
         orderService.addOrders(orders);
         System.out.println("Added ");
         List<Order> list = orderService.getAllOrders();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success","true"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success",true));
     }
 
     @PutMapping("/{id}")
@@ -50,7 +50,7 @@ public class OrderController {
         orderService.deleteByIdOrders(id);
         System.out.println("Deleted ");
         List<Order> list = orderService.getAllOrders();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success","true"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success",true));
     }
 
 }

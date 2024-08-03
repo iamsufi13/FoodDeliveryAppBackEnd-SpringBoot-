@@ -1,6 +1,7 @@
 package com.whizFortuneRestaurant.Address;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.whizFortuneRestaurant.Users.User;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -16,7 +17,7 @@ public class Address {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonBackReference("user-addresses")
+//    @JsonBackReference("user-addresses")
     private User user;
 
     private String name;
@@ -37,6 +38,7 @@ public class Address {
 
     private String addresstype;
 
+    @JsonIgnore
     private LocalDateTime dt1;
 
     @PrePersist

@@ -31,7 +31,7 @@ public class BannerController {
     @GetMapping
     public ResponseEntity<List<ApiResponse<Banner>>> getAllBanners() {
         List<Banner> list = bannerService.getAllBanners();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list, "SUCCESS", "true"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list, "SUCCESS", true));
     }
 
     @GetMapping("/general")
@@ -67,7 +67,7 @@ public class BannerController {
         List<Banner> list = bannerService.getAllBanners();
 
         // Return response
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list, "SUCCESS", "true"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list, "SUCCESS", true));
     }
 
     // Utility method to save the file
@@ -186,7 +186,7 @@ public class BannerController {
     public ResponseEntity<List<ApiResponse<Banner>>> deleteBannerById(@PathVariable long id) {
         bannerService.deleteBannerById(id);
         List<Banner> list = bannerService.getAllBanners();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list, "SUCCESS", "true"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list, "SUCCESS", true));
     }
 
 //    private String saveFile(MultipartFile file, String subFolder) {

@@ -18,7 +18,7 @@ public class AvailableSizesController {
     @GetMapping
     public ResponseEntity<List<ApiResponse<AvailableSizes>>> getAllAvailableSizes(){
         List<AvailableSizes> list =availableSizesService.getAllSizes();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS","ok"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS",true));
 
     }
 
@@ -33,7 +33,7 @@ public class AvailableSizesController {
     public ResponseEntity<List<ApiResponse<AvailableSizes>>> saveAvailableSize(@RequestBody AvailableSizes availableSize){
         availableSizesService.saveAvailableSize(availableSize);
         List<AvailableSizes> list =availableSizesService.getAllSizes();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS","ok"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS",true));
 
     }
     @PutMapping("/{id}")
@@ -41,14 +41,14 @@ public class AvailableSizesController {
         System.out.println("data for updating "+availableSize);
         availableSizesService.updateAvailableSize(id,availableSize);
         List<AvailableSizes> list =availableSizesService.getAllSizes();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS","ok"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS",true));
 
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<List<ApiResponse<AvailableSizes>>> deleteAvailableSize(@PathVariable long id){
         availableSizesService.deleteAvailableSizesById(id);
         List<AvailableSizes> list =availableSizesService.getAllSizes();
-        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS","ok"));
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS",true));
 
     }
 }

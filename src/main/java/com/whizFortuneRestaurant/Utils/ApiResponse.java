@@ -3,11 +3,11 @@ package com.whizFortuneRestaurant.Utils;
 import java.util.List;
 
 public class ApiResponse<T> {
-    private String status;
+    private boolean status;
     private String messsage;
     private List<T> response_data;
 
-    public ApiResponse(String status, String messsage, Object response_data) {
+    public ApiResponse(boolean status, String messsage, Object response_data) {
         this.status = status;
         this.messsage = messsage;
         this.response_data = (List<T>) response_data;
@@ -30,11 +30,11 @@ public class ApiResponse<T> {
         this.response_data = response_data;
     }
 
-    public String getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 }

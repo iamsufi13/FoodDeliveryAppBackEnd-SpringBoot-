@@ -3,6 +3,9 @@ package com.whizFortuneRestaurant.Coupon;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import com.whizFortuneRestaurant.Coupon.CouponDTO;
 
 @org.springframework.stereotype.Service
 public class CouponService {
@@ -37,5 +40,11 @@ public class CouponService {
 
     public void deleteCouponById(long id) {
         repository.deleteById(id);
+    }
+
+    public List<CouponDTO> getAllCouponDto() {
+
+        List<Coupon> list = repository.findAll();
+        return list.stream().map(CouponMapper::toCouponDto).collect(Collectors.toList());
     }
 }

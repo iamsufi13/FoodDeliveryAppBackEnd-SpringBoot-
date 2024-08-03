@@ -6,8 +6,12 @@ import com.whizFortuneRestaurant.Catlog1.CatlogService;
 import com.whizFortuneRestaurant.Catlog1.Catlogs;
 import com.whizFortuneRestaurant.ComboProducts.ComboProductService;
 import com.whizFortuneRestaurant.ComboProducts.ComboProducts;
-import com.whizFortuneRestaurant.Coupon.Coupon;
+import com.whizFortuneRestaurant.Coupon.CouponDTO;
 import com.whizFortuneRestaurant.Coupon.CouponService;
+import com.whizFortuneRestaurant.DealOfTheDay.DealOfTheDay;
+import com.whizFortuneRestaurant.DealOfTheDay.DealOfTheDayDto;
+import com.whizFortuneRestaurant.DealOfTheDay.DealOfTheDayRepository;
+import com.whizFortuneRestaurant.DealOfTheDay.DealOfTheDayService;
 import com.whizFortuneRestaurant.Product.Product;
 import com.whizFortuneRestaurant.Product.ProductDto;
 import com.whizFortuneRestaurant.Product.ProductService;
@@ -40,22 +44,28 @@ public class HomePageController {
     @Autowired
     private BannerService bannerService;
 
+    @Autowired
+    private DealOfTheDayService dealOfTheDayService;
+
     @GetMapping
     public ResponseEntity<HomePageResponse<HomePageDto>> getAllHomeAssets() {
         List<Banner> bannerList = bannerService.getAllBanners();
         List<Catlogs> catlogsList = catlogService.getAllCatlog();
-        List<Coupon> couponList = couponService.getAllCoupon();
-        List<ComboProducts> comboProductsList = comboProductsService.getAllComboProducts();
         List<ProductDto> productList = productService.getAllProductsExcludeOtherEntities();
+
+        List<CouponDTO> couponList = couponService.getAllCouponDto();
+        List<ComboProducts> comboProductsList = comboProductsService.getAllComboProducts();
         List<ProductDto> productsTags = productService.getProductsBySpeciality();
+        List<DealOfTheDayDto> dealOfTheDay = dealOfTheDayService.getAllDealsOfTheDay();
 
         // Create HomePageDto
         HomePageDto homePageDto = new HomePageDto(
                 bannerList,
-                couponList,
-                comboProductsList,
                 catlogsList,
                 productList,
+                dealOfTheDay,
+                couponList,
+                comboProductsList,
                 productsTags
         );
 
@@ -64,8 +74,8 @@ public class HomePageController {
         homePageDtoList.add(homePageDto);
 
         HomePageResponse<HomePageDto> response = new HomePageResponse<>(
+                true,
                 "SUCCESS",
-                "ok",
                 homePageDtoList
 
         );
