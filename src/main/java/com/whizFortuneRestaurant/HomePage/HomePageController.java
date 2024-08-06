@@ -12,6 +12,9 @@ import com.whizFortuneRestaurant.DealOfTheDay.DealOfTheDay;
 import com.whizFortuneRestaurant.DealOfTheDay.DealOfTheDayDto;
 import com.whizFortuneRestaurant.DealOfTheDay.DealOfTheDayRepository;
 import com.whizFortuneRestaurant.DealOfTheDay.DealOfTheDayService;
+import com.whizFortuneRestaurant.Orders.OrderDto;
+import com.whizFortuneRestaurant.Orders.OrderService;
+import com.whizFortuneRestaurant.Orders.Orders;
 import com.whizFortuneRestaurant.Product.Product;
 import com.whizFortuneRestaurant.Product.ProductDto;
 import com.whizFortuneRestaurant.Product.ProductService;
@@ -47,6 +50,9 @@ public class HomePageController {
     @Autowired
     private DealOfTheDayService dealOfTheDayService;
 
+    @Autowired
+    private OrderService orderService;
+
     @GetMapping
     public ResponseEntity<HomePageResponse<HomePageDto>> getAllHomeAssets() {
         List<Banner> bannerList = bannerService.getAllBanners();
@@ -57,6 +63,7 @@ public class HomePageController {
         List<ComboProducts> comboProductsList = comboProductsService.getAllComboProducts();
         List<ProductDto> productsTags = productService.getProductsBySpeciality();
         List<DealOfTheDayDto> dealOfTheDay = dealOfTheDayService.getAllDealsOfTheDay();
+        List<OrderDto> recentOrders = orderService.getAllOrders();
 
         // Create HomePageDto
         HomePageDto homePageDto = new HomePageDto(
@@ -66,7 +73,8 @@ public class HomePageController {
                 dealOfTheDay,
                 couponList,
                 comboProductsList,
-                productsTags
+                productsTags,
+                recentOrders
         );
 
         // Wrap the HomePageDto in a List for HomePageResponse

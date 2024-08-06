@@ -1,22 +1,20 @@
 package com.whizFortuneRestaurant.Orders;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.whizFortuneRestaurant.OrderProduct.OrderProduct;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class OrderDto {
     private long id;
     private long txnid;
-    private List<Long> productIds;
-    private List<Long> availableSizeIds;
+    private List<Long> productIds;  // Updated to List<Long>
+    private List<OrderProduct> orderProduct;
+    private List<Long> availableSizeIds;  // Updated to List<Long>
     private long orderStatusId;
     private long userId;
     private int price;
@@ -25,4 +23,6 @@ public class OrderDto {
     private int status;
     private int discountPrice;
     private LocalDateTime dt1;
+
+
 }

@@ -7,12 +7,14 @@ import com.whizFortuneRestaurant.Coupon.Coupon;
 import com.whizFortuneRestaurant.Coupon.CouponDTO;
 import com.whizFortuneRestaurant.DealOfTheDay.DealOfTheDay;
 import com.whizFortuneRestaurant.DealOfTheDay.DealOfTheDayDto;
+import com.whizFortuneRestaurant.Orders.OrderDto;
+import com.whizFortuneRestaurant.Orders.Orders;
 import com.whizFortuneRestaurant.Product.ProductDto;
 
 import java.util.List;
 
 public class HomePageMapper {
-    public static HomePageDto toDto(List<Banner> banners, List<CouponDTO> coupons, List<ProductDto> products, List<DealOfTheDayDto> dealOfTheDayDtos, List<ComboProducts> comboProducts, List<Catlogs> catlogs, List<ProductDto> productsSpeciality) {
+    public static HomePageDto toDto(List<Banner> banners, List<CouponDTO> coupons, List<ProductDto> products, List<DealOfTheDayDto> dealOfTheDayDtos, List<ComboProducts> comboProducts, List<Catlogs> catlogs, List<ProductDto> productsSpeciality, List<OrderDto> recentOrders) {
         if (banners == null && coupons == null && products == null && comboProducts == null && catlogs == null && productsSpeciality == null) {
             return null;
         }
@@ -23,7 +25,8 @@ public class HomePageMapper {
                 dealOfTheDayDtos,
                 coupons,
                 comboProducts,
-                productsSpeciality
+                productsSpeciality,
+                recentOrders
         );
     }
 }

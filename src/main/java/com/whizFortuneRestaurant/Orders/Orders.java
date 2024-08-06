@@ -1,9 +1,9 @@
 package com.whizFortuneRestaurant.Orders;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.whizFortuneRestaurant.AvailableISizes.AvailableSizes;
+import com.whizFortuneRestaurant.OrderProduct.OrderProduct;
 import com.whizFortuneRestaurant.OrderStatus.OrderStatus;
 import com.whizFortuneRestaurant.Product.Product;
 import com.whizFortuneRestaurant.Users.User;
@@ -28,16 +28,19 @@ public class Orders {
 
     private long txnid;
 
-    @OneToMany(mappedBy = "orders",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference(value = "productsorders")
-    List<Product> products;
+    private List<Product> products;
 
-    @OneToMany(mappedBy = "orders",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AvailableSizes> availableSizes;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_status_id", referencedColumnName = "id")
     private OrderStatus orderStatus;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderProduct> orderProducts;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

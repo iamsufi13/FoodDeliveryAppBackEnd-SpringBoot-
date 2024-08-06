@@ -11,6 +11,7 @@ import com.whizFortuneRestaurant.Coupon.Coupon;
 import com.whizFortuneRestaurant.DealOfTheDay.DealOfTheDay;
 import com.whizFortuneRestaurant.Favorites.Favorite;
 import com.whizFortuneRestaurant.NutritionData.NutritionData;
+import com.whizFortuneRestaurant.OrderProduct.OrderProduct;
 import com.whizFortuneRestaurant.Orders.Orders;
 import com.whizFortuneRestaurant.WishList.WishList;
 import jakarta.persistence.*;
@@ -79,6 +80,10 @@ public class Product implements java.io.Serializable {
     private List<Coupon> coupons;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    private List<OrderProduct> orderProducts;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cart> carts;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
@@ -86,6 +91,7 @@ public class Product implements java.io.Serializable {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
+    @JsonBackReference
     private Orders orders;
 
 //    @ManyToOne

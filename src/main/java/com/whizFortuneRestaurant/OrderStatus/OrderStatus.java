@@ -1,5 +1,6 @@
 package com.whizFortuneRestaurant.OrderStatus;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.whizFortuneRestaurant.Orders.Orders;
 import jakarta.persistence.*;
@@ -18,6 +19,7 @@ public class OrderStatus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @OneToOne(mappedBy = "orderStatus")
+    @JsonBackReference
     private Orders order;
 
     private String ordertype;

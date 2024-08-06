@@ -71,8 +71,8 @@ public class ProductController {
         return productService.getProductsBySpeciality();
     }
 
-    @GetMapping("/productdetails/{id}")
-    public ResponseEntity<List<HashMap<String, Object>>> getProductDetailsPage(@PathVariable long id) {
+    @GetMapping("/productdetails")
+    public ResponseEntity<List<HashMap<String, Object>>> getProductDetailsPage(@RequestParam long id) {
         // Retrieve the product from the service
         Product product = productService.getProductById(id);
 
@@ -121,7 +121,7 @@ public class ProductController {
         Product product = new Product();
         product.setName(name);
         product.setDescription(description);
-        product.setFoodType(FoodType.valueOf(foodType)); // Adjust if FoodType is different
+        product.setFoodType(FoodType.valueOf(foodType));
         product.setMrp(mrp);
         product.setCustomizationAvailable(customizationAvailable);
         product.setServeFor(serveFor);
