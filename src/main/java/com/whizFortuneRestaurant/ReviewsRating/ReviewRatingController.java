@@ -1,15 +1,17 @@
 package com.whizFortuneRestaurant.ReviewsRating;
 
-import com.whizFortuneRestaurant.Favorites.Favorite;
-import com.whizFortuneRestaurant.OrderStatus.OrderStatus;
+import com.whizFortuneRestaurant.Product.Product;
+import com.whizFortuneRestaurant.Product.ProductService;
+import com.whizFortuneRestaurant.Users.User;
+import com.whizFortuneRestaurant.Users.UserService;
 import com.whizFortuneRestaurant.Utils.ApiResponse;
 import com.whizFortuneRestaurant.Utils.ResponseUtils;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -18,6 +20,11 @@ public class ReviewRatingController {
 
     @Autowired
     ReviewRatingService reviewRatingService;
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    ProductService productService;
 
     @GetMapping
     public ResponseEntity<List<ApiResponse<ReviewRating>>> getAllReviewRating(){
@@ -31,8 +38,22 @@ public class ReviewRatingController {
 
     }
     @PostMapping
-    public ResponseEntity<List<ApiResponse<ReviewRating>>> addReviewRating(@RequestBody ReviewRating reviewRating){
-        System.out.println("detils to add " + reviewRating);
+    public ResponseEntity<List<ApiResponse<ReviewRating>>> addReviewRating(@RequestParam long userId,
+                                                                           @RequestParam long productId,
+                                                                           @RequestParam long rating,
+                                                                           @RequestParam String reviewmessage,
+                                                                           @RequestParam String reviewhead,
+                                                                           @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    ReviewRating reviewRating = new ReviewRating();
+    User user = userService.getUserById(userId);
+    reviewRating.setUsers(user);
+    Product product = productService.getProductById(productId);
+    reviewRating.setProduct(product);
+    reviewRating.setReviewmessage(reviewmessage);
+    reviewRating.setReviewhead(reviewhead);
+    reviewRating.setDate(date);
+    reviewRating.setRating(rating);
+    System.out.println("detils to add " + reviewRating);
         reviewRatingService.addReviewRating(reviewRating);
         System.out.println("Added ");
         List<ReviewRating> list = reviewRatingService.getAllReviewRating();

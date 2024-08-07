@@ -24,10 +24,17 @@ public class ComboProductController {
     private ProductService productService;
 
     @GetMapping
-    public ResponseEntity<List<ApiResponse<ComboProducts>>> getAllComboProducts() {
-        List<ComboProducts> list = comboProductService.getAllComboProducts();
+    public ResponseEntity<List<ApiResponse<ComboProductsDto>>> getAllComboProducts() {
+        List<ComboProductsDto> list = comboProductService.getAllComboProducts();
         return ResponseEntity.ok().body(ResponseUtils.createResponse(list, "SUCCESS", true));
     }
+    @GetMapping("/combo-products")
+    public ResponseEntity<ComboProductsDto> getComboProduct(@RequestParam long id) {
+        ComboProducts comboProducts = comboProductService.findById(id);
+        ComboProductsDto dto = ComboProductsMapper.toComboProductsDto(comboProducts);
+        return ResponseEntity.ok(dto);
+    }
+
 
     @PostMapping
     public ResponseEntity<List<ApiResponse<ComboProducts>>> addComboProducts(
@@ -82,7 +89,7 @@ public class ComboProductController {
         comboProducts.setProductDetails(productDetailsList);
         comboProductService.comboProductsReposiory.save(comboProducts);
 
-        List<ComboProducts> comboProductsList = comboProductService.getAllComboProducts();
+        List<ComboProductsDto> comboProductsList = comboProductService.getAllComboProducts();
         return ResponseEntity.ok().body(ResponseUtils.createResponse(comboProductsList, "SUCCESS", true));
     }
 }

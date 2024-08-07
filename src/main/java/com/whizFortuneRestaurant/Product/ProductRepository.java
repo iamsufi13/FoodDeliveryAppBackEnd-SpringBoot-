@@ -15,4 +15,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p WHERE CONCAT(',', p.sellerTags, ',') LIKE %:tag%")
     List<Product> findProductsBySellerTag(@Param("tag") String tag);
 
+    @Query("SELECT p FROM Product p WHERE p.catlogs.id = :id")
+    List<Product> findByCategoryId(@Param("id") long id);
 }

@@ -14,7 +14,6 @@ public class ComboProductsDto {
     private String description;
     private int price;
     private int mrp;
-    @Enumerated(EnumType.STRING)
     private FoodType foodType;
     private int oniongarlic;
     private int freedelivery;

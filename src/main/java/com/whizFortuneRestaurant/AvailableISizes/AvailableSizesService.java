@@ -37,4 +37,8 @@ public class AvailableSizesService {
     public void deleteAvailableSizesById(long id){
         availableSizesRepository.deleteById(id);
     }
+
+    public AvailableSizes getSizeById(long sizeId) {
+        return availableSizesRepository.findById(sizeId).orElse(null);
+    }
 }

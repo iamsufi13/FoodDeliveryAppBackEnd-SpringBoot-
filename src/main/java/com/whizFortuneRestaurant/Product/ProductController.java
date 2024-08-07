@@ -39,26 +39,26 @@ public class ProductController {
     private String uploadFolder;
 
     @GetMapping
-    public ResponseEntity<List<Product>> getAllProducts() {
-        List<Product> products = productService.getAllProducts();
+    public ResponseEntity<List<ProductDto>> getAllProducts() {
+        List<ProductDto> products = productService.getAllProducts();
         System.out.println(products);
         return ResponseEntity.ok(products);
     }
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getAllProductsTest() {
-        List<Product> products = productService.getAllProducts();
+    public ResponseEntity<List<ProductDto>> getAllProductsTest() {
+        List<ProductDto> products = productService.getAllProducts();
         System.out.println(products);
         return ResponseEntity.ok(products);
     }
 
 
     @GetMapping("/general")
-    public List<ProductDto> getAllProductsExcludeOtherEntities() {
+    public List<ProductListingDto> getAllProductsExcludeOtherEntities() {
         return productService.getAllProductsExcludeOtherEntities();
     }
     @GetMapping("/by-tag")
-    public ResponseEntity<List<ApiResponse<Product>>> getProductsByTag(@RequestParam("tag") String tag) {
-        List<Product> products = productService.getProductsByTag(tag);
+    public ResponseEntity<List<ApiResponse<ProductByTagDto>>> getProductsByTag(@RequestParam("tag") String tag) {
+        List<ProductByTagDto> products = productService.getProductsByTag(tag);
         if (products.isEmpty()) {
             return ResponseEntity.ok().body(ResponseUtils.createResponse(products,"SUCCESS",false));
         } else {
@@ -67,7 +67,7 @@ public class ProductController {
         }
     }
     @GetMapping("/specialty")
-    public List<ProductDto> getProductsBySpeciality() {
+    public List<ProductByTagDto> getProductsBySpeciality() {
         return productService.getProductsBySpeciality();
     }
 
@@ -75,6 +75,7 @@ public class ProductController {
     public ResponseEntity<List<HashMap<String, Object>>> getProductDetailsPage(@RequestParam long id) {
         // Retrieve the product from the service
         Product product = productService.getProductById(id);
+
 
         // Create a HashMap for the response
         HashMap<String, Object> hashMap = new HashMap<>();
@@ -248,6 +249,12 @@ private String saveFile(MultipartFile file, String subFolder) {
     public ResponseEntity<Product> getProductById(@PathVariable long id) {
         Product product = productService.getProductById(id);
         return ResponseEntity.ok(product);
+    }
+
+    @GetMapping("/catlog")
+    public ResponseEntity<List<ApiResponse<ProductListingDto>>> getProductBasedOnCatlog(@RequestParam long id) {
+        List<ProductListingDto> list = productService.getProductsByCategory(id);
+        return ResponseEntity.ok().body(ResponseUtils.createResponse(list, "SUCCESS", true));
     }
 
     @PutMapping("/{id}")

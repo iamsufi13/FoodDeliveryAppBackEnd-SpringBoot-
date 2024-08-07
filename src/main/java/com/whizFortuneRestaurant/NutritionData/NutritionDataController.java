@@ -1,5 +1,7 @@
 package com.whizFortuneRestaurant.NutritionData;
 
+import com.whizFortuneRestaurant.Product.Product;
+import com.whizFortuneRestaurant.Product.ProductService;
 import com.whizFortuneRestaurant.Utils.ApiResponse;
 import com.whizFortuneRestaurant.Utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,9 @@ import java.util.List;
 public class NutritionDataController {
     @Autowired
     NutritionDataService nutritionDataService;
+
+    @Autowired
+    ProductService productService;
     @GetMapping
     public ResponseEntity<List<ApiResponse<NutritionData>>> getAllNutritionData(){
         List<NutritionData> list = nutritionDataService.getAllNutritionData();
@@ -24,10 +29,25 @@ public class NutritionDataController {
     }
 
     @PostMapping
-    public ResponseEntity<List<ApiResponse<NutritionData>>> saveNutritionData(@RequestBody NutritionData nutritionData){
-        nutritionDataService.saveNutritionData(nutritionData);
+    public ResponseEntity<List<ApiResponse<NutritionData>>> saveNutritionData(
+            @RequestParam int status,
+            @RequestParam int fats,
+            @RequestParam int proteins,
+            @RequestParam int calories,
+            @RequestParam int carbs,
+            @RequestParam long productId
+    ){
+        NutritionData nutritionData1 = new NutritionData();
+        nutritionData1.setStatus(status);
+        nutritionData1.setFats(fats);
+        nutritionData1.setProteins(proteins);
+        nutritionData1.setCalories(calories);
+        nutritionData1.setCarbs(carbs);
+        Product product = productService.getProductById(productId);
+        nutritionData1.setProduct(product);
+        nutritionDataService.saveNutritionData(nutritionData1);
         List<NutritionData> list = nutritionDataService.getAllNutritionData();
-        System.out.println("added succ"+nutritionData);
+        System.out.println("added succ"+nutritionData1);
         return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS",true));
     }
     @PutMapping("/{id}")

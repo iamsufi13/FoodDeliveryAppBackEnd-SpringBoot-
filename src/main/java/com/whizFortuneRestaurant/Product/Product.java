@@ -13,6 +13,7 @@ import com.whizFortuneRestaurant.Favorites.Favorite;
 import com.whizFortuneRestaurant.NutritionData.NutritionData;
 import com.whizFortuneRestaurant.OrderProduct.OrderProduct;
 import com.whizFortuneRestaurant.Orders.Orders;
+import com.whizFortuneRestaurant.ReviewsRating.ReviewRating;
 import com.whizFortuneRestaurant.WishList.WishList;
 import jakarta.persistence.*;
 import lombok.*;
@@ -103,5 +104,12 @@ public class Product implements java.io.Serializable {
     private Set<WishList> wishListSet;
 
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,orphanRemoval = true)
+    @JsonIgnore
     private List<ComboProductDetails> comboProductDetails;
+
+    public int getQty() {
+        return 0;
+    }
+    @OneToMany(mappedBy = "product")
+    List<ReviewRating> reviewRatings;
 }

@@ -6,6 +6,7 @@ import com.whizFortuneRestaurant.Catlog1.CatlogService;
 import com.whizFortuneRestaurant.Catlog1.Catlogs;
 import com.whizFortuneRestaurant.ComboProducts.ComboProductService;
 import com.whizFortuneRestaurant.ComboProducts.ComboProducts;
+import com.whizFortuneRestaurant.ComboProducts.ComboProductsDto;
 import com.whizFortuneRestaurant.Coupon.CouponDTO;
 import com.whizFortuneRestaurant.Coupon.CouponService;
 import com.whizFortuneRestaurant.DealOfTheDay.DealOfTheDay;
@@ -15,9 +16,7 @@ import com.whizFortuneRestaurant.DealOfTheDay.DealOfTheDayService;
 import com.whizFortuneRestaurant.Orders.OrderDto;
 import com.whizFortuneRestaurant.Orders.OrderService;
 import com.whizFortuneRestaurant.Orders.Orders;
-import com.whizFortuneRestaurant.Product.Product;
-import com.whizFortuneRestaurant.Product.ProductDto;
-import com.whizFortuneRestaurant.Product.ProductService;
+import com.whizFortuneRestaurant.Product.*;
 import com.whizFortuneRestaurant.Utils.HomePageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -55,13 +54,14 @@ public class HomePageController {
 
     @GetMapping
     public ResponseEntity<HomePageResponse<HomePageDto>> getAllHomeAssets() {
+
         List<Banner> bannerList = bannerService.getAllBanners();
         List<Catlogs> catlogsList = catlogService.getAllCatlog();
-        List<ProductDto> productList = productService.getAllProductsExcludeOtherEntities();
+        List<ProductListingDto> productList = productService.getAllProductsExcludeOtherEntities();
 
         List<CouponDTO> couponList = couponService.getAllCouponDto();
-        List<ComboProducts> comboProductsList = comboProductsService.getAllComboProducts();
-        List<ProductDto> productsTags = productService.getProductsBySpeciality();
+        List<ComboProductsDto> comboProductsList = comboProductsService.getAllComboProducts();
+        List<ProductByTagDto> productsTags = productService.getProductsBySpeciality();
         List<DealOfTheDayDto> dealOfTheDay = dealOfTheDayService.getAllDealsOfTheDay();
         List<OrderDto> recentOrders = orderService.getAllOrders();
 

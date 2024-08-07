@@ -20,8 +20,8 @@ public class UserController {
     @Autowired
     UserService userService;
     @GetMapping
-    public ResponseEntity<List<ApiResponse<User>>> getAllUser(){
-        List<User> list = userService.getAllUser();
+    public ResponseEntity<List<ApiResponse<UserDto>>> getAllUser(){
+        List<UserDto> list = userService.getAllUser();
         return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS",true));
 
     }
@@ -54,11 +54,11 @@ public class UserController {
         System.out.println("detils to add " + user1);
         userService.addUser(user1);
         System.out.println("Added ");
-        List<User> list = userService.getAllUser();
+        List<UserDto> list = userService.getAllUser();
         return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success",true));
     }
 
-    @GetMapping("number/{mobile}")
+    @GetMapping("number")
     public ResponseEntity<List<ApiResponse<User>>> checkNumber(@RequestParam long mobile){
         Random random = new Random();
         int random_int1 = random.nextInt(10000);
@@ -111,7 +111,7 @@ public class UserController {
         System.out.println("updating  "+ user1);
         userService.updateUser(id,user1);
         System.out.println("updated");
-        List<User> list = userService.getAllUser();
+        List<UserDto> list = userService.getAllUser();
 
         return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"SUCCESS",true));
     }
@@ -120,7 +120,7 @@ public class UserController {
         System.out.println("detils to add " + id);
         userService.deleteUserById(id);
         System.out.println("Deleted ");
-        List<User> list = userService.getAllUser();
+        List<UserDto> list = userService.getAllUser();
         return ResponseEntity.ok().body(ResponseUtils.createResponse(list,"Success",true));
     }
 }

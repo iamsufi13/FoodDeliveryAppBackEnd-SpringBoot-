@@ -29,19 +29,15 @@ public class OrderController {
 
     @GetMapping("/details")
     public ResponseEntity<List<HashMap<String, Object>>> getOrderDetails(@RequestParam long id) {
-        // Retrieve the product from the service
         Orders order = orderService.getByIdOrder(id);
 
-        // Create a HashMap for the response
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("status", "true");
         hashMap.put("data", order);
         hashMap.put("message", "SUCCESS");
 
-        // Wrap the HashMap in a list
         List<HashMap<String, Object>> responseList = Collections.singletonList(hashMap);
 
-        // Return the response list wrapped in ResponseEntity
         return ResponseEntity.ok(responseList);
     }
 

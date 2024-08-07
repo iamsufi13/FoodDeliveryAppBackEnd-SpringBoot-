@@ -15,16 +15,17 @@ public class ProductService {
 
     private static final String STATIC_TAG = "speciality";
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
-    }
-    public List<ProductDto> getAllProductsExcludeOtherEntities(){
-        List<Product> products = productRepository.findAll();
-        return products.stream().map(ProductMapper::toProductDto).collect(Collectors.toList());
-    }
-    public List<ProductDto> getProductsBySpeciality() {
-        List<Product> list= productRepository.findProductsBySellerTag("specialty");
+    public List<ProductDto> getAllProducts() {
+        List<Product> list = productRepository.findAll();
         return list.stream().map(ProductMapper::toProductDto).collect(Collectors.toList());
+    }
+    public List<ProductListingDto> getAllProductsExcludeOtherEntities(){
+        List<Product> products = productRepository.findAll();
+        return products.stream().map(ProductMapper::toProductListingDto).collect(Collectors.toList());
+    }
+    public List<ProductByTagDto> getProductsBySpeciality() {
+        List<Product> list= productRepository.findProductsBySellerTag("specialty");
+        return list.stream().map(ProductMapper::toProductByTagDto).collect(Collectors.toList());
     }
 
     public Product addProduct(Product product) {
@@ -33,7 +34,7 @@ public class ProductService {
     }
 
     public Product getProductById(long id) {
-        return productRepository.findById(id)
+       return productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
     }
 
@@ -66,8 +67,9 @@ public class ProductService {
         }
     }
 
-    public List<Product> getProductsByTag(String tag) {
-        return productRepository.findByTag(tag);
+    public List<ProductByTagDto> getProductsByTag(String tag) {
+        List<Product> list = productRepository.findByTag(tag);
+        return list.stream().map(ProductMapper::toProductByTagDto).collect(Collectors.toList());
     }
 
     public void deleteAllProducts() {
@@ -75,5 +77,9 @@ public class ProductService {
     }
 
 
+    public List<ProductListingDto> getProductsByCategory(long id) {
+        List<Product> list = productRepository.findByCategoryId(id);
+        return list.stream().map(ProductMapper::toProductListingDto).collect(Collectors.toList());
+    }
 }
 

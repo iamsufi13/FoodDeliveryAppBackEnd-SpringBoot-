@@ -25,4 +25,6 @@ public class OrderDto {
     private LocalDateTime dt1;
 
 
+    public <R> OrderDto(long id, long txnid, R r, R r1, long l, long l1, int price, int mrp, int qty, int status, int discountprice, LocalDateTime dt1) {
+    }
 }
